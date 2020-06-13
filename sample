@@ -1,0 +1,53 @@
+    public void insertTask(final RegionListResponse regionListResponse) {
+        db.regionsListResponseDao().deleteAll();
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                for(RegionList regionList:regionListResponse.getRegionList()){
+                    db.regionsListResponseDao().insert(regionList);
+                }
+                return null;
+            }
+        }.execute();
+    }
+
+    public void insertReadNews(ReadNewsTimeSpendModel readNewsTimeSpendModel) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                Log.i("INSERT_BG","TASK");
+                db.readNewsTimeSpendDao().insertReadNews(readNewsTimeSpendModel);
+                return null;
+            }
+        }.execute();
+    }
+
+    public void insertAppSession(AppSessionTimingsModel appSessionTimingsModel) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                db.appSessionTimingsDao().insertAppSession(appSessionTimingsModel);
+                return null;
+            }
+        }.execute();
+    }
+
+    public void updateReadNews(long endtime, int id) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                db.readNewsTimeSpendDao().updateEndTime(endtime,id);
+                return null;
+            }
+        }.execute();
+    }
+
+    public void updateAppSession(long endtime, int id) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                db.appSessionTimingsDao().updateEndTime(endtime,id);
+                return null;
+            }
+        }.execute();
+    }
